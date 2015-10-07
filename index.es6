@@ -6,6 +6,7 @@ export default class AnimatedPanel extends React.Component {
 
   static get propTypes() {
     return {
+      animated: React.PropTypes.bool,
       adTag: React.PropTypes.string,
       lazyLoad: React.PropTypes.bool,
       lazyLoadMargin: React.PropTypes.number,
@@ -16,6 +17,7 @@ export default class AnimatedPanel extends React.Component {
 
   static get defaultProps() {
     return {
+      animated: true,
       lazyLoad: true,
       lazyLoadMargin: 350,
       sizes: [ [ 60, 60 ], [ 70, 70 ], [ 300, 250 ], [ 1024, 768 ] ]
@@ -77,9 +79,7 @@ export default class AnimatedPanel extends React.Component {
     }
     if (this.isElementInViewport(containerElement) === true) {
       const targetContainerElement = React.findDOMNode(containerElement);
-      targetContainerElement.style.opacity = 1;
-      targetContainerElement.style.transform = 'translateY(0px)';
-      targetContainerElement.style.webkitTransform = 'translateY(0px)';
+      targetContainerElement.className += ' animatedpanel__visible';
       this.cleanupEventListeners();
     }
   }
@@ -123,16 +123,19 @@ export default class AnimatedPanel extends React.Component {
   render() {
     let tag;
     if (this.state && this.state.tagId) {
-      tag = (<div id={this.state.tagId} style={{ minHeight: this.props.reserveHeight || undefined }}></div>);
+      const adStyle = {
+        minHeight: this.props.reserveHeight || undefined
+      };
+      tag = (<div className="animatedpanel--googlead" id={this.state.tagId} style={adStyle}></div>);
+    }
+    let rootClassNames = ['animatedpanel--container'];
+    if (this.props.animated) {
+      rootClassNames.push('animatedpanel__animated');
     }
     return (
-      <div ref="container" className="AnimatedPanel--container">
-        <span ref="title" className="AnimatedPanel--title">Advertisement</span>
-        <div ref="panel" className="AnimatedPanel--panel">
-          <div ref="panelInner" className="AnimatedPanel--panel-inner">
-          {tag}
-          </div>
-        </div>
+      <div ref="container" className={rootClassNames.join(' ')}>
+        <span ref="title" className="animatedpanel--title">Advertisement</span>
+        {tag}
       </div>
     );
   }
