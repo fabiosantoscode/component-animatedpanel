@@ -12,6 +12,7 @@ export default class AnimatedPanel extends React.Component {
       lazyLoadMargin: React.PropTypes.number,
       sizes: React.PropTypes.arrayOf(React.PropTypes.array),
       reserveHeight: React.PropTypes.number,
+      styled: React.PropTypes.bool,
     };
   }
 
@@ -20,7 +21,8 @@ export default class AnimatedPanel extends React.Component {
       animated: true,
       lazyLoad: true,
       lazyLoadMargin: 350,
-      sizes: [ [ 60, 60 ], [ 70, 70 ], [ 300, 250 ], [ 1024, 768 ] ]
+      sizes: [ [ 60, 60 ], [ 70, 70 ], [ 300, 250 ], [ 1024, 768 ] ],
+      styled: true,
     }
   }
 
@@ -129,12 +131,17 @@ export default class AnimatedPanel extends React.Component {
       tag = (<div className="animatedpanel--googlead" id={this.state.tagId} style={adStyle}></div>);
     }
     let rootClassNames = ['animatedpanel--container'];
+    let title;
+    if (this.props.styled) {
+      rootClassNames.push('animatedpanel--container__styled');
+      title = (<span ref="title" className="animatedpanel--title">Advertisement</span>)
+    }
     if (this.props.animated) {
       rootClassNames.push('animatedpanel__animated');
     }
     return (
       <div ref="container" className={rootClassNames.join(' ')}>
-        <span ref="title" className="animatedpanel--title">Advertisement</span>
+        {title}
         {tag}
       </div>
     );
