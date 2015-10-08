@@ -28,32 +28,32 @@ describe('AnimatedPanel', () => {
         .should.have.been.called();
     });
 
-    it('adds showElementWhenInView() to scroll event listener', () => {
+    it('adds loadElementWhenInView() to scroll event listener', () => {
       chai.spy.on(Object.getPrototypeOf(window), 'addEventListener');
 
       const element = React.createElement(AnimatedPanel);
       element.componentDidMount();
 
       window.addEventListener
-        .should.have.been.called.with('scroll', element.showElementWhenInView);
+        .should.have.been.called.with('scroll', element.loadElementWhenInView);
     });
 
-    it('adds showElementWhenInView() to resize event listener', () => {
+    it('adds loadElementWhenInView() to resize event listener', () => {
       chai.spy.on(Object.getPrototypeOf(window), 'addEventListener');
 
       const element = React.createElement(AnimatedPanel);
       element.componentDidMount();
 
       window.addEventListener
-        .should.have.been.called.with('resize', element.showElementWhenInView);
+        .should.have.been.called.with('resize', element.loadElementWhenInView);
     });
 
-    it('calls showElementWhenInView', () => {
+    it('calls loadElementWhenInView', () => {
       const element = React.createElement(AnimatedPanel);
-      chai.spy.on(element, 'showElementWhenInView');
+      chai.spy.on(element, 'loadElementWhenInView');
       element.componentDidMount();
 
-      element.showElementWhenInView
+      element.loadElementWhenInView
         .should.have.been.called();
     });
 
@@ -61,24 +61,24 @@ describe('AnimatedPanel', () => {
 
   describe('cleanupEventListeners', () => {
 
-    it('removes showElementWhenInView() to scroll event listener', () => {
+    it('removes loadElementWhenInView() to scroll event listener', () => {
       chai.spy.on(Object.getPrototypeOf(window), 'removeEventListener');
 
       const element = React.createElement(AnimatedPanel);
       element.cleanupEventListeners();
 
       window.removeEventListener
-        .should.have.been.called.with('scroll', element.showElementWhenInView);
+        .should.have.been.called.with('scroll', element.loadElementWhenInView);
     });
 
-    it('removes showElementWhenInView() to resize event listener', () => {
+    it('removes loadElementWhenInView() to resize event listener', () => {
       chai.spy.on(Object.getPrototypeOf(window), 'removeEventListener');
 
       const element = React.createElement(AnimatedPanel);
       element.cleanupEventListeners();
 
       window.removeEventListener
-        .should.have.been.called.with('resize', element.showElementWhenInView);
+        .should.have.been.called.with('resize', element.loadElementWhenInView);
     });
 
   });
@@ -97,7 +97,7 @@ describe('AnimatedPanel', () => {
 
   });
 
-  describe('showElementWhenInView', () => {
+  describe('loadElementWhenInView', () => {
 
 
   });

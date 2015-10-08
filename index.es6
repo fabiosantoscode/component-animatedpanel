@@ -28,7 +28,7 @@ export default class AnimatedPanel extends React.Component {
 
   constructor(...args) {
     super(...args);
-    this.showElementWhenInView = this.showElementWhenInView.bind(this);
+    this.loadElementWhenInView = this.loadElementWhenInView.bind(this);
   }
 
   componentWillMount() {
@@ -55,9 +55,9 @@ export default class AnimatedPanel extends React.Component {
     if (!this.props.lazyLoad && this.state && this.state.tagId && !this.state.adGenerated) {
       this.generateAd();
     }
-    window.addEventListener('scroll', this.showElementWhenInView);
-    window.addEventListener('resize', this.showElementWhenInView);
-    this.showElementWhenInView();
+    window.addEventListener('scroll', this.loadElementWhenInView);
+    window.addEventListener('resize', this.loadElementWhenInView);
+    this.loadElementWhenInView();
   }
 
   componentWillUnmount() {
@@ -72,7 +72,7 @@ export default class AnimatedPanel extends React.Component {
       rect.top < (window.innerHeight || document.documentElement.clientHeight) + margin;
   }
 
-  showElementWhenInView() {
+  loadElementWhenInView() {
     const containerElement = this.refs.container;
     if (!this.state.adGenerated &&
         this.props.lazyLoad &&
@@ -87,8 +87,8 @@ export default class AnimatedPanel extends React.Component {
   }
 
   cleanupEventListeners() {
-    window.removeEventListener('scroll', this.showElementWhenInView);
-    window.removeEventListener('resize', this.showElementWhenInView);
+    window.removeEventListener('scroll', this.loadElementWhenInView);
+    window.removeEventListener('resize', this.loadElementWhenInView);
   }
 
   generateAd() {
